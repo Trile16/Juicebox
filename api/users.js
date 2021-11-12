@@ -1,6 +1,7 @@
 // api/users.js
 const express = require("express");
 const usersRouter = express.Router();
+const { requireUser } = require("./utils");
 
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
@@ -17,6 +18,13 @@ usersRouter.get("/", async (req, res) => {
   const users = await getAllUsers();
   res.send({
     users,
+  });
+});
+
+usersRouter.get("/authenticate", requireUser, (req, res, next) => {
+  res.send({
+    success: true,
+    user: req.user,
   });
 });
 

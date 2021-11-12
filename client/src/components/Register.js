@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-function Register(props) {
+function Register({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const history = useHistory();
 
   async function handleSubmit(e) {
     console.log("it clicks!");
@@ -22,8 +24,13 @@ function Register(props) {
           location,
         }),
       });
-      const parsedResponse = await response.json();
-      console.log(parsedResponse);
+      const register = await response.json();
+      console.log(register);
+      const token = register.token;
+      console.log(token);
+      localStorage.setItem("token", token);
+      setIsLoggedIn(true);
+      history.push("/Posts");
     } catch (error) {
       throw error;
     }

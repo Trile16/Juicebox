@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-function Login(props) {
+function Login({ setIsLoggedIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,6 +21,12 @@ function Login(props) {
       });
       const parsedResponse = await response.json();
       console.log(parsedResponse);
+
+      const token = parsedResponse.token;
+      console.log(token);
+      localStorage.setItem("token", token);
+      setIsLoggedIn(true);
+      history.push("/Posts");
     } catch (error) {
       throw error;
     }

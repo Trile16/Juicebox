@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import CreatePost from "./CreatePost";
 
-function Posts(props) {
+function Posts({ userId }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -14,6 +16,7 @@ function Posts(props) {
   }, []);
 
   console.log(posts);
+  console.log(userId);
 
   const postsToRender = posts.map((post) => {
     return (
@@ -24,12 +27,14 @@ function Posts(props) {
           <p>Content: {post.content}</p>
           {post.tags.length ? <p>Tags: yes</p> : <p>Tags: no</p>}
         </div>
+        <Link to={`/Posts/${post.id}`}>Click here for single post</Link>
       </>
     );
   });
 
   return (
     <div>
+      <CreatePost userId={userId} setPosts={setPosts} />
       <h1>Posts</h1>
       {postsToRender}
     </div>

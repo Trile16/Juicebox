@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Posts from "./components/Posts";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import SinglePost from "./components/SinglePost";
 
 function App(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const getAuthenticate = async () => {
+      const response = await fetch(`api/users/authenticate`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const authenticate = await response.json();
+      console.log(authenticate);
+      setUserId(authenticate.user.id);
+      console.log(authenticate.user.id);
+    };
+
+    getAuthenticate();
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
+
   return (
     <div>
       <Router>
-        <Nav />
+        <Nav setIsLoggedIn={setIsLoggedIn} />
         <Switch>
-          <Route path="/Posts" component={Posts} />
-          <Route path="/Register" component={Register} />
-          <Route path="/Login" component={Login} />
+          <Route exact path="/Posts">
+            <Posts userId={userId} />
+          </Route>
+          <Route path="/Register">
+            <Register setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route path="/Login">
+            <Login setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          {/* :id is a param (thats why u import in singlepost) */}
+          <Route path="/Posts/:id">
+            <SinglePost userId={userId} />
+          </Route>
         </Switch>
       </Router>
     </div>

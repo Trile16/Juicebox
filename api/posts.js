@@ -95,6 +95,15 @@ postsRouter.patch("/:postId", requireUser, async (req, res, next) => {
   }
 });
 
+postsRouter.get("/:postId", async (req, res, next) => {
+  try {
+    const singlePost = await getPostById(req.params.postId);
+    res.send(singlePost);
+  } catch (error) {
+    next(error);
+  }
+});
+
 postsRouter.delete("/:postId", requireUser, async (req, res, next) => {
   try {
     const post = await getPostById(req.params.postId);

@@ -49,7 +49,8 @@ apiRouter.use("/users", usersRouter);
 apiRouter.use("/posts", postsRouter);
 apiRouter.use("/tags", tagsRouter);
 apiRouter.use((error, req, res, next) => {
-  res.send({
+  console.error(error);
+  res.status(500).send({
     name: error.name,
     message: error.message,
   });
