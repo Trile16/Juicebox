@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const { PORT = 5000 } = process.env;
 const server = express();
+const path = require("path");
 
 server.use(express.json());
 
@@ -19,6 +20,10 @@ server.use((req, res, next) => {
 
 const apiRouter = require("./api");
 server.use("/api", apiRouter);
+server.use(express.static(path.join(__dirname, "client", "build")));
+server.get("*", (req, res, next) =>
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+);
 
 const { client } = require("./db");
 client.connect();

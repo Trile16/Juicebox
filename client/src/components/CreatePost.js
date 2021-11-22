@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function CreatePost({ userId, setPosts }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tags, setTags] = useState("");
   const token = localStorage.getItem("token");
+  const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,7 +27,8 @@ function CreatePost({ userId, setPosts }) {
     const response2 = await fetch(`/api/posts`);
     const parsedResponse = await response2.json();
     setPosts(parsedResponse.posts);
-    console.log(addPost);
+    const id = addPost.post.id;
+    history.push(`Posts/${id}`);
   }
 
   return (

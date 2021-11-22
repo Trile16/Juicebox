@@ -39,7 +39,6 @@ function EditPost({ setPost }) {
           placeholder="Title"
           onChange={(e) => {
             setTitle(e.target.value);
-            console.log(title);
           }}
         />
         <input
@@ -47,7 +46,6 @@ function EditPost({ setPost }) {
           placeholder="content"
           onChange={(e) => {
             setContent(e.target.value);
-            console.log(content);
           }}
         />
         <input
@@ -55,7 +53,6 @@ function EditPost({ setPost }) {
           placeholder="tags"
           onChange={(e) => {
             setTags(e.target.value);
-            console.log(tags);
           }}
         />
         <button type="submit">Edit Post!</button>

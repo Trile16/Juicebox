@@ -11,16 +11,17 @@ function Nav({ setIsLoggedIn }) {
   };
 
   return (
-    <div>
+    <div id="navbar">
+      <h1 id="juicebox-title">JuiceBox</h1>
       <nav>
-        <ul>
-          <span>
+        <ul id="navbar-items">
+          <span class="navbar-item">
             <Link to="/Posts">Posts</Link>
           </span>
-          <span>
+          <span class="navbar-item">
             <Link to="/Register">Register</Link>
           </span>
-          <span>
+          <span class="navbar-item">
             {localStorage.length !== 0 ? (
               <button onClick={logout}>Logout</button>
             ) : (

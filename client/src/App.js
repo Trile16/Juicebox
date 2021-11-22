@@ -13,15 +13,20 @@ function App(props) {
 
   useEffect(() => {
     const getAuthenticate = async () => {
-      const response = await fetch(`api/users/authenticate`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const authenticate = await response.json();
-      console.log(authenticate);
-      setUserId(authenticate.user.id);
-      console.log(authenticate.user.id);
+      try {
+        const response = await fetch(`api/users/authenticate`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const authenticate = await response.json();
+        console.log(authenticate);
+        authenticate.success
+          ? setUserId(authenticate.user.id)
+          : console.log("not logged in");
+      } catch (error) {
+        throw error;
+      }
     };
 
     getAuthenticate();
@@ -34,7 +39,7 @@ function App(props) {
         <Nav setIsLoggedIn={setIsLoggedIn} />
         <Switch>
           <Route exact path="/Posts">
-            <Posts userId={userId} />
+            <Posts isLoggedIn={isLoggedIn} userId={userId} />
           </Route>
           <Route path="/Register">
             <Register setIsLoggedIn={setIsLoggedIn} />

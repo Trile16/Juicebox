@@ -25,8 +25,9 @@ function Login({ setIsLoggedIn }) {
       const token = parsedResponse.token;
       console.log(token);
       localStorage.setItem("token", token);
-      setIsLoggedIn(true);
-      history.push("/Posts");
+      parsedResponse.token
+        ? (setIsLoggedIn(true), history.push("/Posts"))
+        : null;
     } catch (error) {
       throw error;
     }
@@ -45,7 +46,7 @@ function Login({ setIsLoggedIn }) {
         />
         <input
           value={password}
-          placeholder="Username"
+          placeholder="Password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}

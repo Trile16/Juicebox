@@ -1,0 +1,41 @@
+body {
+  background-color: rgb(233, 247, 255);
+  color: black;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+  width: 90vw;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: yellow;
+  border: black solid 0.2vw;
+}
+
+.navbar-item {
+  padding: 10vw;
+  text-shadow: 2px 2px 5px orangered, 2px 2px 5px yellow;
+  font-weight: bolder;
+  font-size: 1.5vmax;
+}
+
+#juicebox-title {
+  color: black;
+  background-color: lightpink;
+  border: black solid 0.1vw;
+  padding: 1vw;
+  margin: 2vw;
+  text-shadow: 2px 2px 5px orangered, 2px 2px 5px yellow;
+  font-size: 2vmax;
+}
+
+.post {
+  border: solid black 1px;
+  color: black;
+  margin: 1vw;
+  padding: 1vw;
+  background-color: white;
+}
